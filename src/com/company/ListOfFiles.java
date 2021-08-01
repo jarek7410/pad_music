@@ -5,6 +5,7 @@ package com.company;
 */
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -18,13 +19,30 @@ public class ListOfFiles {
 
         Pattern p= Pattern.compile("zip$");
         Matcher m;
-        for(String s:contents){
-            m=p.matcher(s);
-            if(!m.find()) s = "";
+        Vector<String> lis = new Vector<String>();
+        for(int i =0;i<contents.length;i++){
+            m=p.matcher(contents[i]);
+            if(m.find()) lis.addElement(contents[i]);
         }
         System.out.println("List of files and directories in the specified directory:");
         for(int i=0; i<contents.length; i++) {
             System.out.println(contents[i]);
         }
+    }
+    public static Vector<String> listOfFiles(String regex,String path){
+
+            File directoryPath = new File(path);
+            String contents[] = directoryPath.list();
+
+            Pattern p = Pattern.compile(regex);
+            Matcher m;
+            Vector<String> lis = new Vector<String>();
+
+            for (int i = 0; i < contents.length; i++) {
+                m = p.matcher(contents[i]);
+                if (m.find()) lis.addElement(contents[i]);
+            }
+            return lis;
+
     }
 }
