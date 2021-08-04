@@ -6,7 +6,7 @@ import com.studiohartman.jamepad.*;
 
 
 public class Main {
-
+    private static String testsong ="C:\\Users\\jarek\\Downloads\\the_witcher_soundtrack_mp3\\01 Dusk of a Northern Kingdom.mp3";
     private static boolean running=true;
 
     //private Scanner userInput = new Scanner(System.in);
@@ -26,6 +26,8 @@ public class Main {
         }*/
         controllers = new ControllerManager(numberOfPads);
         controllers.initSDLGamepad();
+        Sound sound=new Sound(testsong);
+
         while(running){
             //time of refreshing of input
             //for power efficiency
@@ -43,8 +45,14 @@ public class Main {
                         for (ControllerButton b : buttons) {
                             if (c.isButtonPressed(b)) {
                                 System.out.println("button " + b.name() + " is pressed");
-                                if (b.name() == "A") running = false;
-
+                                if (b.name() == "A") {
+                                    running = false;
+                                }else if (b.name() == "X") {
+                                    sound =new Sound(testsong);
+                                    sound.play();
+                                }else if(b.name()=="Y"){
+                                    sound.stop();
+                                }
 
 
                             }
