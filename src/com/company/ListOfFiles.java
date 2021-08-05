@@ -1,10 +1,9 @@
 package com.company;
-/*
-** build on:
-** https://www.tutorialspoint.com/how-to-get-list-of-all-files-folders-from-a-folder-in-java
-*/
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,5 +43,35 @@ public class ListOfFiles {
             }
             return lis;
 
+    }
+    public static Vector<String> listOfMP3(String path){
+        return listOfFiles("mp3$",path);
+    }
+    public static String[] VtoS(Vector<String> list){
+        String s[]=new String[list.size()];
+        for(int i=0;i<s.length;i++){
+            s[i]=list.get(i);
+        }
+        return s;
+    }
+    protected static String[] getFirstConfig(){
+        String ss[]=new String[8];
+        String s;
+        int i =0;
+
+        File config=new File("config.txt");
+        try {
+            Scanner scanner = new Scanner(config);
+            while(scanner.hasNextLine()){
+                s=scanner.nextLine()+"\\";
+                if(s.charAt(0) != '#'){
+                    ss[i]=s;
+                    i++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ss;
     }
 }

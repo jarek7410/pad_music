@@ -1,5 +1,7 @@
 # this is comment
 #
 #
-# this is first input path:
+# this is input paths:
 C:\Users\jarek\Downloads\the_witcher_soundtrack_mp3
+C:\Users\jarek\Downloads\wl2_choir_songs_mp3
+C:\Users\jarek\Downloads\stalker_soc_soundtrack_mp3

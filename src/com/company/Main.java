@@ -1,30 +1,28 @@
 package com.company;
-//import java.util.Scanner;
+
 import com.studiohartman.jamepad.*;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-//import com.studiohartman.jamepad.tester.ControllerTester;
+import java.util.Scanner;
 
 
+public class Main{
 
-public class Main implements Runnable{
-    private static String testsong ="C:\\Users\\jarek\\Downloads\\the_witcher_soundtrack_mp3\\01 Dusk of a Northern Kingdom.mp3";
     private static boolean running=true;
-
-    //private Scanner userInput = new Scanner(System.in);
-
 
     private static final int numberOfPads=1;
     private static ControllerManager controllers ;
-    private static ControllerButton[] buttons=ControllerButton.values();
+    private static final ControllerButton[] buttons=ControllerButton.values();
 
     private static Player player;
     private static boolean playMusic = false;
-    private int track = 0;
+    private static int track = 0;
+    private static String[] traks;
 
     public static void main(String[] args) {
         //for frame
@@ -37,15 +35,25 @@ public class Main implements Runnable{
         controllers = new ControllerManager(numberOfPads);
         controllers.initSDLGamepad();
 
-        Main obj=new Main();
-        Thread thread = new Thread(obj);
+        //Main obj=new Main();
+        //Thread thread = new Thread(obj);
+        //thread.start();
+
+
+        traks = ListOfFiles.getFirstConfig();
+
+        Sound sound=new Sound(traks);
+        Thread thread = new Thread(sound);
         thread.start();
+
+        track=-1;
+
 
         while(running){
             //time of refreshing of input
             //for power efficiency
             try{
-                Thread.sleep(30L);
+                Thread.sleep(100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -58,22 +66,51 @@ public class Main implements Runnable{
                         for (ControllerButton b : buttons) {
                             if (c.isButtonPressed(b)) {
                                 System.out.println("button " + b.name() + " is pressed");
-                                if (b.name() == "A") {
-                                    running = false;
-                                }else if (b.name() == "X") {
-                                        if(!playMusic){
-                                            playMusic=true;
-
+                                switch (b.name()) {
+                                    case "BACK" -> {
+                                        sound.close();
+                                        running = false;
+                                    }
+                                    case "START" -> sound.stop();
+                                    case "A" -> {
+                                        sound.setTrack(0);
+                                        if(sound.getTrack()!=track){
+                                            sound.stop();
+                                            track=0;
                                         }
-
-                                }else if(b.name()=="Y"){
-                                    if(playMusic){
-                                        player.close();
-                                        playMusic=false;
+                                        sound.play();
+                                    }
+                                    case "B" -> {
+                                        sound.setTrack(1);
+                                        if(sound.getTrack()!=track){
+                                            sound.stop();
+                                            track=1;
+                                        }
+                                        sound.play();
+                                    }
+                                    case "Y" -> {
+                                        sound.setTrack(2);
+                                        if(sound.getTrack()!=track){
+                                            sound.stop();
+                                            track=2;
+                                        }
+                                        sound.play();
+                                    }
+                                    case "X" -> {
+                                        sound.setTrack(3);
+                                        if(sound.getTrack()!=track){
+                                            sound.stop();
+                                            track=3;
+                                        }
+                                        sound.play();
+                                    }
+                                    case "RIGHTBUMPER" ->{
+                                        if(track!=-1){
+                                            sound.stop();
+                                            sound.play();
+                                        }
                                     }
                                 }
-
-
                             }
                         }
 
@@ -90,32 +127,5 @@ public class Main implements Runnable{
     }
 
 
-    @Override
-    public void run() {
-        System.err.println("goooood");
-        while(running){
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.err.print("loop, ");
 
-            if(playMusic) {
-                System.err.println("IT IS WORKING!!!!!");
-                try {
-                    InputStream is = new FileInputStream("C:\\Users\\jarek\\Downloads\\the_witcher_soundtrack_mp3\\04 Mighty.mp3");
-                    player = new Player(is);
-                    player.play();
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (JavaLayerException e) {
-                    e.printStackTrace();
-                }
-            }
-            }
-
-        return;
-    }
 }
