@@ -42,10 +42,13 @@ public class Main{
 
         track=-1;
 
+        System.out.println("number of traks: "+ config.getNumberOfTreks());
         System.out.println("path to music from config.txt:");
         for(String s:config.traks()){
             System.out.println("\t"+s);
         }
+        System.out.println();
+
         while(running){
             //time of refreshing of input
             //for power efficiency
@@ -67,9 +70,23 @@ public class Main{
                                     case "CLOSE" -> {
                                         sound.close();
                                         running = false;
+                                        System.out.println(
+                                                """
+                                                            music and program are stopped
+                                                            thanks for using this program
+
+                                                        ######################################
+                                                        ########### Have a nice day ##########
+                                                        ######################################
+
+                                                        https://github.com/jarek7410/pad_music""");
                                     }
-                                    case "PAUSE" -> sound.stop();
+                                    case "STOP" -> {
+                                        sound.stop();
+                                        System.out.println("music is stopped");
+                                    }
                                     case "1" -> {
+                                        System.out.println("track is changed");
                                         sound.setTrack(0,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -78,6 +95,7 @@ public class Main{
                                         sound.play();
                                     }
                                     case "2" -> {
+                                        System.out.println("track is changed");
                                         sound.setTrack(1,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -86,6 +104,7 @@ public class Main{
                                         sound.play();
                                     }
                                     case "3" -> {
+                                        System.out.println("track is changed");
                                         sound.setTrack(2,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -94,6 +113,7 @@ public class Main{
                                         sound.play();
                                     }
                                     case "4" -> {
+                                        System.out.println("track is changed");
                                         sound.setTrack(3,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -106,8 +126,9 @@ public class Main{
                                             sound.stop();
                                             sound.play();
                                         }
+                                        System.out.println("Song is changed");
                                     }
-                                    default -> System.out.println("not assined: "+b.name());
+                                    default -> System.out.println("not assigned: "+b.name());
                                 }
                             }
                         }

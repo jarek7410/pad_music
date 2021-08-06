@@ -48,7 +48,7 @@ public class Sound implements Runnable{
             //System.err.println("play music " + playMusic);
             if (playMusic) {
                 try {
-                    System.out.print("music is being played: ");
+                    //System.out.print("music is being played: ");
                     i = ((int) (Math.random() * listOfTracks.length)) ;
                     System.out.println("track nr."+(track+1)+" song: \""+listOfTracks[i]+"\"");
                     InputStream is = new FileInputStream(config.traks()[track] +"\\"+ listOfTracks[i]);
@@ -67,6 +67,9 @@ public class Sound implements Runnable{
     }
     public void play(){
         playMusic=true;
+    }
+    public void pause(){
+        //TODO
     }
 
     public void stop(){

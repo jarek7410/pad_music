@@ -17,7 +17,7 @@ GUIDE       :       NULL
 START       :       NULL
 LEFTSTICK   :       NULL
 RIGHTSTICK  :       NULL
-LEFTBUMPER  :   PAUSE
+LEFTBUMPER  :   STOP
 RIGHTBUMPER :   CHANGE
 DPAD_UP     :       NULL
 DPAD_DOWN   :       NULL
