@@ -41,13 +41,16 @@ public class Main{
 
 
         traks = ListOfFiles.getFirstConfig();
-
         Sound sound=new Sound(traks);
         Thread thread = new Thread(sound);
         thread.start();
 
         track=-1;
 
+        System.out.println("path to music from config.txt:");
+        for(String s:traks){
+            System.out.println("\t"+s);
+        }
 
         while(running){
             //time of refreshing of input
