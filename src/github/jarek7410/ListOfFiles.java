@@ -1,4 +1,4 @@
-package com.company;
+package github.jarek7410;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,30 +48,11 @@ public class ListOfFiles {
         return listOfFiles("mp3$",path);
     }
     public static String[] VtoS(Vector<String> list){
-        String s[]=new String[list.size()];
+        String[] s =new String[list.size()];
         for(int i=0;i<s.length;i++){
             s[i]=list.get(i);
         }
         return s;
     }
-    protected static String[] getFirstConfig(){
-        String ss[]=new String[8];
-        String s;
-        int i =0;
 
-        File config=new File("config.txt");
-        try {
-            Scanner scanner = new Scanner(config);
-            while(scanner.hasNextLine()){
-                s=scanner.nextLine()+"\\";
-                if(s.charAt(0) != '#'){
-                    ss[i]=s;
-                    i++;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ss;
-    }
 }

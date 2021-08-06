@@ -1,4 +1,4 @@
-package com.company;
+package github.jarek7410;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -13,14 +13,17 @@ public class Sound implements Runnable{
     private boolean running;
     private boolean playMusic;
     private Player player;
-    private String[] traks;
+    private Config config;
     private String[] listOfTracks;
     private int track=0;
 
-    Sound(String[] pathsToFiles){
-        traks=pathsToFiles;
+    Sound(Config config){
+        this.config=config;
         running=true;
         playMusic=false;
+    }
+    public void reloadConfig(Config config){
+        this.config=config;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class Sound implements Runnable{
 
             if (tr != track) {
                 tr = track;
-                listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(traks[tr]));
+                listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.traks()[tr]));
 
             }
             //System.err.println("play music " + playMusic);
@@ -47,8 +50,8 @@ public class Sound implements Runnable{
                 System.err.println("IT IS WORKING!!!!!");
                 try {
                     i = ((int) (Math.random() * listOfTracks.length)) ;
-                    System.err.println(traks[track] + listOfTracks[i]);
-                    InputStream is = new FileInputStream(traks[track] + listOfTracks[i]);
+                    System.err.println(config.traks()[track] + listOfTracks[i]);
+                    InputStream is = new FileInputStream(config.traks()[track] + listOfTracks[i]);
                     player = new Player(is);
                     player.play();
 
@@ -84,7 +87,7 @@ public class Sound implements Runnable{
     public int getTrack(){
         return track;
     }
-    public void setTrack(int i){
-        if(i<traks.length)track=i;
+    public void setTrack(int i,Config config){
+        if(i<config.getNumberOfTreks())track=i;
     }
 }
