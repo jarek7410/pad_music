@@ -1,4 +1,4 @@
-package github.jarek7410;
+package github.jarek7410.pud_music;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;

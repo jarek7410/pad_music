@@ -1,4 +1,4 @@
-package github.jarek7410;
+package github.jarek7410.pud_music;
 
 import com.studiohartman.jamepad.ControllerButton;
 

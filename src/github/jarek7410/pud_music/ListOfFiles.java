@@ -1,4 +1,4 @@
-package github.jarek7410;
+package github.jarek7410.pud_music;
 
 import java.io.File;
 import java.io.FileNotFoundException;
