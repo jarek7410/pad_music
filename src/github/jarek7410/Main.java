@@ -3,6 +3,8 @@ package github.jarek7410;
 import com.studiohartman.jamepad.*;
 import javazoom.jl.player.Player;
 
+import java.util.HashMap;
+
 
 public class Main{
 
@@ -16,6 +18,7 @@ public class Main{
     private static boolean playMusic = false;
     private static int track = 0;
     private static Sound sound;
+    private static HashMap<String, String> buttonActions;
 
     public static void main(String[] args) {
         //for frame
@@ -30,6 +33,9 @@ public class Main{
 
         Config config = new Config();
         config.getConfigs();
+
+        buttonActions=config.getButtonsAction();
+
         sound=new Sound(config);
         Thread thread = new Thread(sound);
         thread.start();
@@ -56,14 +62,14 @@ public class Main{
                         //System.out.print(c.getName()+",\t");
                         for (ControllerButton b : buttons) {
                             if (c.isButtonPressed(b)) {
-                                System.out.println("button " + b.name() + " is pressed");
-                                switch (b.name()) {
-                                    case "BACK" -> {
+                                //System.out.println("button " + b.name() + " is pressed");
+                                switch (buttonActions.get(b.name())) {
+                                    case "CLOSE" -> {
                                         sound.close();
                                         running = false;
                                     }
-                                    case "START" -> sound.stop();
-                                    case "A" -> {
+                                    case "PAUSE" -> sound.stop();
+                                    case "1" -> {
                                         sound.setTrack(0,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -71,7 +77,7 @@ public class Main{
                                         }
                                         sound.play();
                                     }
-                                    case "B" -> {
+                                    case "2" -> {
                                         sound.setTrack(1,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -79,7 +85,7 @@ public class Main{
                                         }
                                         sound.play();
                                     }
-                                    case "Y" -> {
+                                    case "3" -> {
                                         sound.setTrack(2,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -87,7 +93,7 @@ public class Main{
                                         }
                                         sound.play();
                                     }
-                                    case "X" -> {
+                                    case "4" -> {
                                         sound.setTrack(3,config);
                                         if(sound.getTrack()!=track){
                                             sound.stop();
@@ -95,12 +101,13 @@ public class Main{
                                         }
                                         sound.play();
                                     }
-                                    case "RIGHTBUMPER" ->{
+                                    case "CHANGE" ->{
                                         if(track!=-1){
                                             sound.stop();
                                             sound.play();
                                         }
                                     }
+                                    default -> System.out.println("not assined: "+b.name());
                                 }
                             }
                         }

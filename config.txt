@@ -1,7 +1,25 @@
 # this is comment
 #
-#
+# number of paths/tracks:
+4
 # this is input paths:
-C:\Users\jarek\Downloads\the_witcher_soundtrack_mp3
-C:\Users\jarek\Downloads\wl2_choir_songs_mp3
-C:\Users\jarek\Downloads\stalker_soc_soundtrack_mp3
+C:\Users\jarek\Downloads\X
+C:\Users\jarek\Downloads\Y
+C:\Users\jarek\Downloads\A
+C:\Users\jarek\Downloads\B
+# use of buttons:
+A           :   1
+B           :   2
+X           :   3
+Y           :   4
+BACK        :   CLOSE
+GUIDE       :       NULL
+START       :       NULL
+LEFTSTICK   :       NULL
+RIGHTSTICK  :       NULL
+LEFTBUMPER  :   PAUSE
+RIGHTBUMPER :   CHANGE
+DPAD_UP     :       NULL
+DPAD_DOWN   :       NULL
+DPAD_LEFT   :       NULL
+DPAD_RIGHT  :       NULL

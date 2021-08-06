@@ -43,15 +43,15 @@ public class Sound implements Runnable{
             if (tr != track) {
                 tr = track;
                 listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.traks()[tr]));
-
+                System.out.println("track which is being played: "+config.traks()[track]);
             }
             //System.err.println("play music " + playMusic);
             if (playMusic) {
-                System.err.println("IT IS WORKING!!!!!");
                 try {
+                    System.out.print("music is being played: ");
                     i = ((int) (Math.random() * listOfTracks.length)) ;
-                    System.err.println(config.traks()[track] + listOfTracks[i]);
-                    InputStream is = new FileInputStream(config.traks()[track] + listOfTracks[i]);
+                    System.out.println("track nr."+(track+1)+" song: \""+listOfTracks[i]+"\"");
+                    InputStream is = new FileInputStream(config.traks()[track] +"\\"+ listOfTracks[i]);
                     player = new Player(is);
                     player.play();
 
