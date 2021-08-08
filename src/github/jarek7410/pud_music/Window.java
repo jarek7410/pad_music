@@ -31,7 +31,7 @@ public class Window extends JPanel implements ActionListener {
         this.add(nameSong);
         this.add(nameTrack);
     }
-    public void updatePanel(){
+     synchronized public void updatePanel(){
         this.nameSong.removeAll();
         this.nameSong.add(new JLabel("song name: "));
         JTextField textField=new JTextField();
@@ -46,17 +46,17 @@ public class Window extends JPanel implements ActionListener {
         textField.setVisible(true);
         this.nameTrack.add(textField);
     }
-    public void setpause(){
+    synchronized public void setPause(){
         this.nameSong.removeAll();
         this.nameTrack.removeAll();
         this.nameSong.add(new JLabel("music is stopped"));
 
     }
-    public void setSong(String name){
+    synchronized public void setSong(String name){
         this.nameOfSong=name;
     }
 
-    public void setTrack(String path){
+    synchronized public void setTrack(String path){
         this.track=path;
     }
 

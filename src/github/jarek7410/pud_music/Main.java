@@ -76,7 +76,7 @@ public class Main{
 
 
         window.setSong("nothing is played");
-        window.setpause();
+        window.setPause();
         window.setMinimumSize(new Dimension(640,350));
 
         windowPrint();
@@ -127,9 +127,7 @@ public class Main{
     private static void windowPrint(){
         panel.removeAll();
         panel.setSize(new Dimension(640,350));
-        synchronized (window) {
             window.updatePanel();
-        }
         panel.add(window);
         try {
             Thread.sleep(100L);
@@ -164,7 +162,7 @@ public class Main{
             case "STOP" -> {
                 sound.stop();
                 System.out.println("music is stopped");
-                window.setpause();
+                window.setPause();
             }
             case "ONE" -> play(0);
             case "TWO" -> play(1);
@@ -180,6 +178,7 @@ public class Main{
             default -> System.out.println
                     ("wrong action");
         }
+        windowPrint();
     }
 
     private static void info(){
