@@ -76,7 +76,6 @@ public class Sound implements Runnable{
     private void windowupdate(int i){
         window.setTrack(config.traks()[track]);
         window.setSong(listOfTracks[i]);
-        window.updatePanel();
     }
     public void play(){
         playMusic=true;

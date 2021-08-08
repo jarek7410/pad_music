@@ -22,7 +22,7 @@ public class Window extends JPanel implements ActionListener {
         this.setLayout(layout);
         this.nameSong = new JPanel();
         this.nameTrack = new JPanel();
-
+        this.setBackground(Color.blue);
         this.nameOfSong = "songName";
         titleLabel = new JLabel("song info");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -33,12 +33,18 @@ public class Window extends JPanel implements ActionListener {
     }
     public void updatePanel(){
         this.nameSong.removeAll();
-        this.nameSong.add(new Label("song name: "));
-        this.nameSong.add(new Label(nameOfSong));
+        this.nameSong.add(new JLabel("song name: "));
+        JTextField textField=new JTextField();
+        textField.setText(nameOfSong);
+        textField.setVisible(true);
+        this.nameSong.add( textField);
 
         this.nameTrack.removeAll();
-        this.nameTrack.add(new Label("track localization: "));
-        this.nameTrack.add(new Label(track));
+        this.nameTrack.add(new JLabel("track localization: "));
+        textField=new JTextField();
+        textField.setText(track);
+        textField.setVisible(true);
+        this.nameTrack.add(textField);
     }
     public void setpause(){
         this.nameSong.removeAll();

@@ -16,7 +16,7 @@ public class Main{
     private static final int numberOfPads=4;
     private static ControllerManager controllers ;
     private static final ControllerButton[] buttons=ControllerButton.values();
-    private static ControllerButton button;
+    //private static ControllerButton button;
 
     private static Player player;
     private static boolean playMusic = false;
@@ -28,6 +28,7 @@ public class Main{
     private static Container c;
     private static HashMap<String, String> buttonActions;
     private static Config config;
+    private static Thread threadSound;
 
     public static void main(String[] args) {
         /*(try {
@@ -40,7 +41,7 @@ public class Main{
         controllers.initSDLGamepad();
 
         config  = new Config();
-        config.getConfigs();
+        config.loadConfigs();
 
         buttonActions=config.getButtonsAction();
 
@@ -51,7 +52,7 @@ public class Main{
         frame.setLocationRelativeTo((Component)null);
         frame.setVisible(true);
         frame.setTitle("pad music");
-        frame.setLayout(new GridLayout());
+        frame.setLayout(new BorderLayout());
         window =new Window(config);
         window.setSize(new Dimension(640,350));
 
@@ -63,17 +64,20 @@ public class Main{
 
 
         panel = new JPanel();
-        panel.add(new JLabel("yes?"));
-        c.add(panel);
+        panel.setMinimumSize(new Dimension(640,350));
+        c.add(panel,BorderLayout.CENTER);
+
 
         sound = new Sound(config, window);
-        new Thread(sound).start();
+        threadSound =new Thread(sound);
+        threadSound.start();
 
         track=-1;
 
 
         window.setSong("nothing is played");
         window.setpause();
+        window.setMinimumSize(new Dimension(640,350));
 
         windowPrint();
 
@@ -104,7 +108,7 @@ public class Main{
                         for (ControllerButton b : buttons) {
                             if (c.isButtonPressed(b)) {
                                 //System.out.println("button " + b.name() + " is pressed");
-                                button=b;
+                                //button=b;
                                 use(buttonActions.get(b.name()));
                             }
                         }
@@ -123,6 +127,9 @@ public class Main{
     private static void windowPrint(){
         panel.removeAll();
         panel.setSize(new Dimension(640,350));
+        synchronized (window) {
+            window.updatePanel();
+        }
         panel.add(window);
         try {
             Thread.sleep(100L);
@@ -159,10 +166,10 @@ public class Main{
                 System.out.println("music is stopped");
                 window.setpause();
             }
-            case "1" -> play(0);
-            case "2" -> play(1);
-            case "3" -> play(2);
-            case "4" -> play(3);
+            case "ONE" -> play(0);
+            case "TWO" -> play(1);
+            case "THREE" -> play(2);
+            case "FOUR" -> play(3);
             case "CHANGE" ->{
                 if(track!=-1){
                     sound.stop();
@@ -170,9 +177,9 @@ public class Main{
                 }
                 System.out.println("Song is changed");
             }
-            default -> System.out.println("not assigned button");
+            default -> System.out.println
+                    ("wrong action");
         }
-        windowPrint();
     }
 
     private static void info(){
@@ -180,6 +187,11 @@ public class Main{
         System.out.println("path to music from config.txt:");
         for(String s:config.traks()){
             System.out.println("\t"+s);
+        }
+        System.out.println("action assignment:");
+        for(Actions a:Actions.values()){
+            System.out.println(config.getActionButtons().get(a.name())+
+                    ":\t"+a.name());
         }
         System.out.println();
     }
