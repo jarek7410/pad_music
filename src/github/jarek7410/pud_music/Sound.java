@@ -17,11 +17,15 @@ public class Sound implements Runnable{
     private String[] listOfTracks;
     private int track=0;
 
-    Sound(Config config){
+    private Window window;
+
+    Sound(Config config,Window w){
+        window =w;
         this.config=config;
         running=true;
         playMusic=false;
     }
+
     public void reloadConfig(Config config){
         this.config=config;
     }
@@ -49,9 +53,13 @@ public class Sound implements Runnable{
             if (playMusic) {
                 try {
                     //System.out.print("music is being played: ");
-                    i = ((int) (Math.random() * listOfTracks.length)) ;
+                    i = ((int) (Math.random() * listOfTracks.length));
+                    windowupdate(i);
                     System.out.println("track nr."+(track+1)+" song: \""+listOfTracks[i]+"\"");
-                    InputStream is = new FileInputStream(config.traks()[track] +"\\"+ listOfTracks[i]);
+                    InputStream is =
+                            new FileInputStream
+                                    (config.traks()[track]
+                                            +"\\"+ listOfTracks[i]);
                     player = new Player(is);
                     player.play();
 
@@ -64,6 +72,11 @@ public class Sound implements Runnable{
 
             }
         }
+    }
+    private void windowupdate(int i){
+        window.setTrack(config.traks()[track]);
+        window.setSong(listOfTracks[i]);
+        window.updatePanel();
     }
     public void play(){
         playMusic=true;
