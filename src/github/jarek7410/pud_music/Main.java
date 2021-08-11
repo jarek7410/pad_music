@@ -31,6 +31,11 @@ public class Main{
     private static Thread threadSound;
 
     public static void main(String[] args) {
+
+        config  = new Config();
+        config.loadConfigs();
+
+        argsHandling(args);
         /*(try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Throwable var2) {
@@ -40,11 +45,25 @@ public class Main{
         controllers = new ControllerManager(numberOfPads);
         controllers.initSDLGamepad();
 
-        config  = new Config();
-        config.loadConfigs();
 
         buttonActions=config.getButtonsAction();
 
+        if(config.frameRun)setWindow();
+
+        sound = new Sound(config, window);
+        threadSound =new Thread(sound);
+        threadSound.start();
+
+        track=-1;
+
+        if(config.frameRun)windowPrint();
+
+        info();
+
+        run();
+    }
+
+    private static void setWindow(){
         frame = new JFrame();
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -66,21 +85,18 @@ public class Main{
         c.add(panel,BorderLayout.CENTER);
 
 
-        sound = new Sound(config, window);
-        threadSound =new Thread(sound);
-        threadSound.start();
-
-        track=-1;
-
-
         window.setSong("nothing is played");
         window.setPause();
+    }
 
-        windowPrint();
-
-        info();
-
-        run();
+    private static void argsHandling(String[] args) {
+        for(int i=0;i<args.length;i++){
+            if(args[i].charAt(0)=='-'){
+                if(args[i].equals("-window")){
+                    if(args[i+1].equals("off")||args[i+1].equals("OFF"))config.frameRun=false;
+                }
+            }
+        }
     }
 
     private static void run(){
@@ -94,7 +110,7 @@ public class Main{
                 e.printStackTrace();
             }
 
-            windowPrint();
+            if(config.frameRun)windowPrint();
 
 
 
@@ -108,7 +124,13 @@ public class Main{
                             if (c.isButtonPressed(b)) {
                                 //System.out.println("button " + b.name() + " is pressed");
                                 //button=b;
-                                use(buttonActions.get(b.name()));
+                                try{
+                                    use(buttonActions.get(b.name()));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.out.println("button is not in use");
+                                }finally {
+                                }
                             }
                         }
                     } catch (ControllerUnpluggedException e) {

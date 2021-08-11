@@ -13,4 +13,11 @@ public enum Actions {
 
     private Actions(){
     }
+    public static boolean isCorrect(String s){
+        Actions[] a = Actions.values();
+        for (Actions aa : a) {
+            if(aa.name().equals(s))return true;
+        }
+        return false;
+    }
 }

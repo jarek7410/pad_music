@@ -20,7 +20,7 @@ public class Sound implements Runnable{
     private Window window;
 
     Sound(Config config,Window w){
-        window =w;
+        if(config.frameRun)window =w;
         this.config=config;
         running=true;
         playMusic=false;
@@ -54,7 +54,7 @@ public class Sound implements Runnable{
                 try {
                     //System.out.print("music is being played: ");
                     i = ((int) (Math.random() * listOfTracks.length));
-                    windowupdate(i);
+                    if(config.frameRun)windowupdate(i);
                     System.out.println("track nr."+(track+1)+" song: \""+listOfTracks[i]+"\"");
                     InputStream is =
                             new FileInputStream

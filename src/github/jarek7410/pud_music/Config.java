@@ -33,6 +33,8 @@ public class Config {
 
     private File config;
 
+    public boolean frameRun =true;
+
     public Config(){
         this.config=new File("config.txt");
     }
