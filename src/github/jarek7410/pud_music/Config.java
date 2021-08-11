@@ -2,6 +2,7 @@ package github.jarek7410.pud_music;
 
 import com.studiohartman.jamepad.ControllerButton;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class Config {
     }
     private HashMap<String,String>  buttonsAction,
                                     actionButtons;
+    public Dimension winDim=new Dimension(640,300);
 
     public HashMap<String, String> getButtonsAction() {
         return buttonsAction;
@@ -32,6 +34,11 @@ public class Config {
     private File config;
 
     public Config(){
+        this.config=new File("config.txt");
+    }
+
+    public Config(int width,int height){
+        this.winDim=new Dimension(width,height);
         this.config=new File("config.txt");
     }
 

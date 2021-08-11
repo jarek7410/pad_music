@@ -48,13 +48,11 @@ public class Main{
         frame = new JFrame();
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(640, 350));
+        frame.setSize(config.winDim);
         frame.setLocationRelativeTo((Component)null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
-        window =new Window(config);
-        window.setSize(new Dimension(640,350));
 
         c =frame.getContentPane();
 
@@ -64,7 +62,7 @@ public class Main{
 
 
         panel = new JPanel();
-        panel.setMinimumSize(new Dimension(640,350));
+        panel.setMinimumSize(config.winDim);
         c.add(panel,BorderLayout.CENTER);
 
 
@@ -77,7 +75,6 @@ public class Main{
 
         window.setSong("nothing is played");
         window.setPause();
-        window.setMinimumSize(new Dimension(640,350));
 
         windowPrint();
 
@@ -96,6 +93,8 @@ public class Main{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            windowPrint();
 
 
 
@@ -125,18 +124,12 @@ public class Main{
     }
 
     private static void windowPrint(){
-        panel.removeAll();
-        panel.setSize(new Dimension(640,350));
-            window.updatePanel();
+        //panel.removeAll();
+        window.updatePanel();
         panel.add(window);
-        try {
-            Thread.sleep(100L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        frame.validate();
-        frame.repaint();
+        c.validate();
+        c.repaint();
     }
 
     public static void use(String action){
@@ -178,7 +171,6 @@ public class Main{
             default -> System.out.println
                     ("wrong action");
         }
-        windowPrint();
     }
 
     private static void info(){
@@ -192,6 +184,8 @@ public class Main{
             System.out.println(config.getActionButtons().get(a.name())+
                     ":\t"+a.name());
         }
+        System.out.println();
+        System.out.println("thread number: " + Thread.activeCount());
         System.out.println();
     }
 
