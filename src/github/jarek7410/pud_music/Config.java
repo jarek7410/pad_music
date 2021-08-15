@@ -5,6 +5,8 @@ import com.studiohartman.jamepad.ControllerButton;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -72,7 +74,7 @@ public class Config {
                 ss[i]=l.line();
             }
             traks=ss;
-
+            int numberOfActions = Integer.parseInt(l.line());
             ss=new String[(ControllerButton.values().length)];
             buttonsAction = new HashMap<>();
             actionButtons = new HashMap<>();
@@ -96,6 +98,43 @@ public class Config {
         }
 
     }
+    public void saveConfigs(){
+        try {
+            FileWriter configWriter=new FileWriter(config);
+            /*configWriter.write("""
+                        4
+                        C:\\Users\\jarek\\Downloads\\X
+                        C:\\Users\\jarek\\Downloads\\Y
+                        C:\\Users\\jarek\\Downloads\\A
+                        C:\\Users\\jarek\\Downloads\\B
+                        7
+                        ONE         :   A
+                        TWO         :   B
+                        THREE       :   X
+                        FOUR        :   Y
+                        CLOSE       :   BACK
+                        STOP        :   LEFTBUMPER
+                        CHANGE      :   RIGHTBUMPER""");*/
+            configWriter.write(traks.length+"\n");
+            for(String ss:traks){
+                configWriter.write(ss+"\n");
+            }
+            configWriter.write(actionButtons.size()+"\n");
+            Actions[] actions = Actions.values();
+            for(int i =0;i<Actions.values().length;++i){
+                configWriter.write(actions[i].name()+
+                        "\t:\t"
+                        +actionButtons.get(actions[i].name())+"\n");
+            }
+
+
+            configWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean correctButton(String s){
         for(ControllerButton b:ControllerButton.values()){
             if(Objects.equals(s, b.name()))return true;

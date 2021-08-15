@@ -1,13 +1,9 @@
-# this is comment
-#
-# number of paths/tracks:
 4
-# this is input paths:
 C:\Users\jarek\Downloads\X
 C:\Users\jarek\Downloads\Y
 C:\Users\jarek\Downloads\A
 C:\Users\jarek\Downloads\B
-# use of buttons:
+7
 ONE         :   A
 TWO         :   B
 THREE       :   X
