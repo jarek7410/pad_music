@@ -68,7 +68,7 @@ public class Main{
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(config.winDim);
-        frame.setLocationRelativeTo((Component)null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
@@ -128,8 +128,8 @@ public class Main{
                                     use(buttonActions.get(b.name()));
                                 } catch (Exception e) {
                                     e.printStackTrace();
-                                    System.out.println("button is not in use");
                                 }finally {
+                                    System.out.println("button is not in use");
                                 }
                             }
                         }
@@ -138,7 +138,7 @@ public class Main{
                     }
                 }
             }
-
+            sound.close();
             //System.out.println();
         }
 
