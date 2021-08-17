@@ -75,24 +75,25 @@ public class Config {
             }
             traks=ss;
             int numberOfActions = Integer.parseInt(l.line());
-            ss=new String[(ControllerButton.values().length)];
             buttonsAction = new HashMap<>();
             actionButtons = new HashMap<>();
 
-            for (int i = 0; i < (Actions.values().length); i++) {
+            for (int i = 0; i < (numberOfActions); i++) {
                 s=l.line();
                 s=s.replace(" ","");
                 ss=s.split(":");
+                ss[0]=ss[0].strip();
+                ss[1]=ss[1].strip();
                 if(!(correctButton(ss[1])&&correctAction(ss[0])))
-                    throw new Exception("incorrect config file! >"+ss[1]+"|"+ss[0]);
+                    throw new Exception("incorrect config file! >"+ss[1]+"|"+ss[0]+"<\n"+
+                            "button: "+ss[1]+" is "+ correctButton(ss[1])+"\n"+
+                            "action: "+ss[0]+" is "+ correctAction(ss[0])+"\n");
                 buttonsAction.put(ss[1],ss[0]);
-                if(ss[1]!="NULL"){
+                if(!Objects.equals(ss[1], "NULL")){
                        actionButtons.put(ss[0],ss[1]);
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,16 +116,16 @@ public class Config {
                         CLOSE       :   BACK
                         STOP        :   LEFTBUMPER
                         CHANGE      :   RIGHTBUMPER""");*/
-            configWriter.write(traks.length+"\n");
+            configWriter.write(traks.length+"\r\n");
             for(String ss:traks){
-                configWriter.write(ss+"\n");
+                configWriter.write(ss+"\r\n");
             }
-            configWriter.write(actionButtons.size()+"\n");
+            configWriter.write(actionButtons.size()+"\r\n");
             Actions[] actions = Actions.values();
             for(int i =0;i<Actions.values().length;++i){
                 configWriter.write(actions[i].name()+
                         "\t:\t"
-                        +actionButtons.get(actions[i].name())+"\n");
+                        +actionButtons.get(actions[i].name())+"\r\n");
             }
 
 

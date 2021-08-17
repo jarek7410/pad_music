@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pad music:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pad_music_jar</output-path>
+    <root id="archive" name="pad music.jar">
+      <element id="module-output" name="pad music" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/Jamepad.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jlayer-1.0.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

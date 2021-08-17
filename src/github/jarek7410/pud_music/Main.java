@@ -138,9 +138,9 @@ public class Main{
                     }
                 }
             }
-            sound.close();
             //System.out.println();
         }
+        sound.close();
 
         controllers.quitSDLGamepad();
     }
@@ -170,9 +170,14 @@ public class Main{
 
                                 https://github.com/jarek7410/pad_music""");
 
+                try {
+                    Thread.sleep(2000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 frame.dispatchEvent
                         (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-
             }
             case "STOP" -> {
                 sound.stop();

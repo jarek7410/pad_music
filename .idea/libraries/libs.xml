@@ -6,6 +6,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.ideaLibSources/jlayer-1.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/Jamepad.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/libs" recursive="false" />
   </library>
