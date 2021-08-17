@@ -40,7 +40,6 @@ public class Window extends JPanel implements ActionListener {
 
         setActionButtons();
 
-
         this.add(titleLabel);
         this.add(nameSong);
         this.add(nameTrack);
@@ -52,7 +51,6 @@ public class Window extends JPanel implements ActionListener {
         sLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER,nameTrack,0,SpringLayout.HORIZONTAL_CENTER,this);
         sLayout.putConstraint(SpringLayout.NORTH, actionButtonsPanel, 5, SpringLayout.SOUTH, nameTrack);
         sLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, actionButtonsPanel,0,SpringLayout.HORIZONTAL_CENTER,this);
-
 
     }
     private void setActionButtons(){
@@ -67,7 +65,7 @@ public class Window extends JPanel implements ActionListener {
             JButton jButton = new JButton(a[i].name());
             jButton.setPreferredSize(new Dimension(80, 35));
             actionButtonList[i] = jButton;
-            System.err.println(a[i].name()+"\t"+i);
+            //System.err.println(a[i].name()+"\t"+i);
         }
         for (int i = 0; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonList[i].addActionListener(this);

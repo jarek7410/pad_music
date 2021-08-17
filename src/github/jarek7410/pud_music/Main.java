@@ -72,6 +72,7 @@ public class Main{
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
+        setMenu();
 
         c =frame.getContentPane();
 
@@ -87,6 +88,18 @@ public class Main{
 
         window.setSong("nothing is played");
         window.setPause();
+    }
+    private static void setMenu() {
+        JMenuBar mb = new JMenuBar();
+        JMenu setting = new JMenu("Settings");
+        JMenuItem defaults = new JMenuItem("set Default ");
+        JMenuItem i1 = new JMenuItem("item1");
+        JMenuItem i2 = new JMenuItem("item2");
+        setting.add(i1);setting.add(defaults);setting.add(i2);
+        mb.add(setting);
+        frame.setJMenuBar(mb);
+
+
     }
 
     private static void argsHandling(String[] args) {

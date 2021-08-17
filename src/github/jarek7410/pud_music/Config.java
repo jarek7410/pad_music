@@ -19,7 +19,7 @@ public class Config {
     }
     private HashMap<String,String>  buttonsAction,
                                     actionButtons;
-    public Dimension winDim=new Dimension(640,300);
+    public Dimension winDim=new Dimension(640,320);
 
     public HashMap<String, String> getButtonsAction() {
         return buttonsAction;
