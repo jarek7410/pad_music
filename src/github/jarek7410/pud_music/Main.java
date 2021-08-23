@@ -66,13 +66,13 @@ public class Main{
     private static void setWindow(){
         frame = new JFrame();
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(config.winDim);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
-        setMenu();
+        //setMenu();
 
         c =frame.getContentPane();
 
@@ -124,7 +124,7 @@ public class Main{
             }
 
             if(config.frameRun)windowPrint();
-
+            if(!frame.isActive())use("CLOSE");
 
 
             controllers.update();
@@ -211,6 +211,7 @@ public class Main{
             default -> System.out.println
                     ("wrong action");
         }
+
     }
 
     private static void info(){

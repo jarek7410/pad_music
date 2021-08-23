@@ -19,6 +19,7 @@ public class Config {
     }
     private HashMap<String,String>  buttonsAction,
                                     actionButtons;
+    private String[] tracksNames;
     public Dimension winDim=new Dimension(640,320);
 
     public HashMap<String, String> getButtonsAction() {
@@ -26,6 +27,10 @@ public class Config {
     }
     public HashMap<String, String> getActionButtons() {
         return actionButtons;
+    }
+
+    public String[] getTracksNames(){
+        return tracksNames;
     }
 
     private int numberOfTreks;
@@ -67,13 +72,17 @@ public class Config {
             }
             Local l=new Local();
             numberOfTreks= Integer.parseInt(l.line());
-            String[]ss=new String[numberOfTreks];
-            String s;
+            String[]ss=new String[numberOfTreks],split;
+            String s,s1;
+            String []trackName=new String[numberOfTreks];
 
             for (int i = 0; i < numberOfTreks; i++) {
-                ss[i]=l.line();
+                split=l.line().split("=");
+                ss[i]=split[1].strip();
+                trackName[i]=split[0].strip();
             }
             traks=ss;
+            this.tracksNames=trackName;
             int numberOfActions = Integer.parseInt(l.line());
             buttonsAction = new HashMap<>();
             actionButtons = new HashMap<>();
@@ -81,16 +90,16 @@ public class Config {
             for (int i = 0; i < (numberOfActions); i++) {
                 s=l.line();
                 s=s.replace(" ","");
-                ss=s.split(":");
-                ss[0]=ss[0].strip();
-                ss[1]=ss[1].strip();
-                if(!(correctButton(ss[1])&&correctAction(ss[0])))
-                    throw new Exception("incorrect config file! >"+ss[1]+"|"+ss[0]+"<\n"+
-                            "button: "+ss[1]+" is "+ correctButton(ss[1])+"\n"+
-                            "action: "+ss[0]+" is "+ correctAction(ss[0])+"\n");
-                buttonsAction.put(ss[1],ss[0]);
-                if(!Objects.equals(ss[1], "NULL")){
-                       actionButtons.put(ss[0],ss[1]);
+                split=s.split(":");
+                split[0]=split[0].strip();
+                split[1]=split[1].strip();
+                if(!(correctButton(split[1])&&correctAction(split[0])))
+                    throw new Exception("incorrect config file! >"+split[1]+"|"+split[0]+"<\n"+
+                            "button: "+split[1]+" is "+ correctButton(split[1])+"\n"+
+                            "action: "+split[0]+" is "+ correctAction(split[0])+"\n");
+                buttonsAction.put(split[1],split[0]);
+                if(!Objects.equals(split[1], "NULL")){
+                       actionButtons.put(split[0],split[1]);
                 }
             }
 

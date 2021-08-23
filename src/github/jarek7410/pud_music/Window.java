@@ -10,6 +10,7 @@ public class Window extends JPanel implements ActionListener {
     private final Config config;
     private final Color myBlack = new Color(30,39,46);
     private final Color CITI_LIGHTS =new Color(223,228,234);
+    private final String[] trackName;
     private JPanel nameSong;
     private JLabel titleLabel;
     private JPanel nameTrack;
@@ -23,6 +24,7 @@ public class Window extends JPanel implements ActionListener {
 
     public Window(Config config) {
         this.config=config;
+        this.trackName=config.getTracksNames();
         //this.setBackground(Color.GREEN);
         SpringLayout sLayout = new SpringLayout();
         this.setLayout(sLayout);
@@ -63,9 +65,13 @@ public class Window extends JPanel implements ActionListener {
         actionButtonList =new JButton[a.length];
         for (int i = 0; i < a.length; i++) {
             JButton jButton = new JButton(a[i].name());
+            jButton.setName(a[i].name());
             jButton.setPreferredSize(new Dimension(80, 35));
             actionButtonList[i] = jButton;
             //System.err.println(a[i].name()+"\t"+i);
+        }
+        for(int i=3;i<config.getNumberOfTreks()+3;i++){
+            actionButtonList[i].setText(trackName[i-3]);
         }
         for (int i = 0; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonList[i].addActionListener(this);
@@ -139,16 +145,16 @@ public class Window extends JPanel implements ActionListener {
             Main.use("CHANGE");
         } else if (actionButtonList[3].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[4].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[5].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[6].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else{
             throw new IllegalStateException("Unexpected value: " + e.getSource());
         }

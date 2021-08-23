@@ -1,8 +1,8 @@
 4
-C:\Users\jarek\Downloads\X
-C:\Users\jarek\Downloads\Y
-C:\Users\jarek\Downloads\A
-C:\Users\jarek\Downloads\B
+trill  = C:\Users\jarek\Downloads\X
+tavern = C:\Users\jarek\Downloads\Y
+combat = C:\Users\jarek\Downloads\A
+fight  = C:\Users\jarek\Downloads\B
 7
 CLOSE	:	BACK
 STOP	:	LEFTBUMPER
