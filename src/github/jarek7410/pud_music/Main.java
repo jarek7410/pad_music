@@ -201,6 +201,10 @@ public class Main{
             case "TWO" -> play(1);
             case "THREE" -> play(2);
             case "FOUR" -> play(3);
+            case "FIVE" -> play(4);
+            case "SIX" -> play(5);
+            case "SEVEN" -> play(6);
+            case "EIGHT" -> play(7);
             case "CHANGE" ->{
                 if(track!=-1){
                     sound.stop();

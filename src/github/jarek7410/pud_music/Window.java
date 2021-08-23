@@ -57,7 +57,7 @@ public class Window extends JPanel implements ActionListener {
     }
     private void setActionButtons(){
         actionButtonsPanel = new JPanel();
-        actionButtonsPanel.setPreferredSize(new Dimension(200,35*config.getNumberOfTreks()));
+        actionButtonsPanel.setPreferredSize(new Dimension(280,35*config.getNumberOfTreks()));
         SpringLayout actButtonLayout = new SpringLayout();
 
         actionButtonsPanel.setLayout(actButtonLayout);
@@ -82,15 +82,25 @@ public class Window extends JPanel implements ActionListener {
         actButtonLayout.putConstraint(SpringLayout.WEST, actionButtonList[3], 0, SpringLayout.WEST, actionButtonsPanel);
         for (int i = 4; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonsPanel.add(actionButtonList[i]);
-            actButtonLayout.putConstraint
+            if(i<=6)
+                actButtonLayout.putConstraint
                     (SpringLayout.NORTH, actionButtonList[i], 0, SpringLayout.SOUTH, actionButtonList[i - 1]);
+            else {
+                System.err.println(i);
+                actButtonLayout.putConstraint
+                        (SpringLayout.WEST, actionButtonList[i], 0, SpringLayout.EAST, actionButtonList[i - 4]);
+                if(i!=7)actButtonLayout.putConstraint
+                        (SpringLayout.NORTH, actionButtonList[i], 0, SpringLayout.SOUTH, actionButtonList[i - 1]);
+
+            }
         }
         actionButtonList[1].addActionListener(this);
+        actionButtonList[1].setPreferredSize(new Dimension(90,40));
         actionButtonsPanel.add(actionButtonList[1]);
         actButtonLayout.putConstraint(SpringLayout.NORTH,actionButtonList[1],5,SpringLayout.NORTH,actionButtonsPanel);
         actButtonLayout.putConstraint(SpringLayout.EAST,actionButtonList[1],-5,SpringLayout.EAST,actionButtonsPanel);
         actionButtonList[2].addActionListener(this);
-        actionButtonList[2].setPreferredSize(new Dimension(100,35));
+        actionButtonList[2].setPreferredSize(new Dimension(90,40));
         actionButtonsPanel.add(actionButtonList[2]);
         actButtonLayout.putConstraint(SpringLayout.NORTH,actionButtonList[2],5,SpringLayout.SOUTH,actionButtonList[1]);
         actButtonLayout.putConstraint(SpringLayout.EAST,actionButtonList[2],-5,SpringLayout.EAST,actionButtonsPanel);
@@ -153,6 +163,21 @@ public class Window extends JPanel implements ActionListener {
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[6].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[7].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[8].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[9].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[10].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[11].equals(source)) {
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else{
