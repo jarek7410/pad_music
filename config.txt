@@ -4,10 +4,10 @@ C:\Users\jarek\Downloads\Y
 C:\Users\jarek\Downloads\A
 C:\Users\jarek\Downloads\B
 7
-ONE         :   A
-TWO         :   B
-THREE       :   X
-FOUR        :   Y
-CLOSE       :   BACK
-STOP        :   LEFTBUMPER
-CHANGE      :   RIGHTBUMPER
+CLOSE	:	BACK
+STOP	:	LEFTBUMPER
+CHANGE	:	RIGHTBUMPER
+ONE	:	A
+TWO	:	B
+THREE	:	X
+FOUR	:	Y
