@@ -71,26 +71,24 @@ public class Config {
                 }
             }
             Local l=new Local();
-            numberOfTreks= Integer.parseInt(l.line());
-            String[]ss=new String[numberOfTreks],split;
+            Vector<String> ve=new Vector<>();
+            while(l.line().equals("BEGIN:"));
+            String []split;
             String s,s1;
-            String []trackName=new String[numberOfTreks];
-
-            for (int i = 0; i < numberOfTreks; i++) {
-                split=l.line().split("=");
-                ss[i]=split[1].strip();
-                trackName[i]=split[0].strip();
+            Vector<String>trackName=new Vector<>();
+            for(s1=l.line();!s1.equals("ACTIONS:");s1=l.line()){
+                split=s1.split("[=|]");
+                ve.add(split[1].strip());
+                trackName.add(split[0].strip());
             }
-            traks=ss;
-            this.tracksNames=trackName;
-            int numberOfActions = Integer.parseInt(l.line());
+                traks=ListOfFiles.VtoS(ve);
+            this.tracksNames=ListOfFiles.VtoS(trackName);
+            this.numberOfTreks= ve.size();
             buttonsAction = new HashMap<>();
             actionButtons = new HashMap<>();
 
-            for (int i = 0; i < (numberOfActions); i++) {
-                s=l.line();
-                s=s.replace(" ","");
-                split=s.split(":");
+            for(s1=l.line();!s1.equals("END;");s1=l.line()){
+                split=s1.split("[:=|]");
                 split[0]=split[0].strip();
                 split[1]=split[1].strip();
                 if(!(correctButton(split[1])&&correctAction(split[0])))
@@ -103,11 +101,47 @@ public class Config {
                 }
             }
 
+
         } catch (Exception e) {
+            System.err.println("""
+                    your config file is invalid
+                    please check it or redownland from app source""");
             e.printStackTrace();
+            Main.use("CLOSE");
         }
 
     }
+    public void saveDefaultConfig(){
+        try {
+            FileWriter configWriter = new FileWriter(config);
+            configWriter.write("""
+                                   BEGIN:
+                                   TRACKS:
+                                   trill    = C:\\Users\\jarek\\Downloads\\X
+                                   fight    = C:\\Users\\jarek\\Downloads\\Y
+                                   combat   = C:\\Users\\jarek\\Downloads\\A
+                                   tavern   = C:\\Users\\jarek\\Downloads\\B
+                                   wl2      = C:\\Users\\jarek\\Downloads\\wl2_choir_songs_mp3
+                                   witcher  = C:\\Users\\jarek\\Downloads\\the_witcher_soundtrack_mp3
+                                   ACTIONS:
+                                   CLOSE	:	BACK
+                                   STOP	    :	LEFTBUMPER
+                                   CHANGE	:	RIGHTBUMPER
+                                   ONE	    :	A
+                                   TWO	    :	B
+                                   THREE	:	X
+                                   FOUR	    :	Y
+                                   FIVE     : DPAD_UP
+                                   SIX      : DPAD_DOWN
+                                   END;
+                                   """);
+
+            configWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void saveConfigs(){
         try {
             FileWriter configWriter=new FileWriter(config);

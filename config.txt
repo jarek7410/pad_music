@@ -1,11 +1,12 @@
-6
+BEGIN:
+TRACKS:
 trill  = C:\Users\jarek\Downloads\X
-tavern = C:\Users\jarek\Downloads\Y
+fight = C:\Users\jarek\Downloads\Y
 combat = C:\Users\jarek\Downloads\A
-fight  = C:\Users\jarek\Downloads\B
+tavern  = C:\Users\jarek\Downloads\B
 wl2 = C:\Users\jarek\Downloads\wl2_choir_songs_mp3
 witcher = C:\Users\jarek\Downloads\the_witcher_soundtrack_mp3
-8
+ACTIONS:
 CLOSE	:	BACK
 STOP	:	LEFTBUMPER
 CHANGE	:	RIGHTBUMPER
@@ -14,3 +15,5 @@ TWO	:	B
 THREE	:	X
 FOUR	:	Y
 FIVE : DPAD_UP
+SIX : DPAD_DOWN
+END;

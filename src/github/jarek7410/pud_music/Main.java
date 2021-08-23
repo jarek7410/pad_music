@@ -170,10 +170,12 @@ public class Main{
     public static void use(String action){
         switch (action) {
             case "CLOSE" -> {
-                sound.close();
+                if(sound!=null)sound.close();
                 running = false;
                 System.out.println(
                         """
+                                --------------------------------------
+                                    
                                     music and program are stopped
                                     thanks for using this program
 
@@ -182,15 +184,9 @@ public class Main{
                                 ######################################
 
                                 https://github.com/jarek7410/pad_music""");
-
-                try {
-                    Thread.sleep(2000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 frame.dispatchEvent
                         (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
             }
             case "STOP" -> {
                 sound.stop();

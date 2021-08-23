@@ -17,7 +17,7 @@ public class Window extends JPanel implements ActionListener {
     private JPanel actionButtonsPanel;
 
     private String nameOfSong;
-    private String track;
+    private String track="no selected";
 
     private JButton up, playStop,left,right;
     private JButton[] actionButtonList;
@@ -57,7 +57,8 @@ public class Window extends JPanel implements ActionListener {
     }
     private void setActionButtons(){
         actionButtonsPanel = new JPanel();
-        actionButtonsPanel.setPreferredSize(new Dimension(280,35*config.getNumberOfTreks()));
+        if(track.length()<=4)actionButtonsPanel.setPreferredSize(new Dimension(200,35*4));
+        else actionButtonsPanel.setPreferredSize(new Dimension(280,35*4));
         SpringLayout actButtonLayout = new SpringLayout();
 
         actionButtonsPanel.setLayout(actButtonLayout);
