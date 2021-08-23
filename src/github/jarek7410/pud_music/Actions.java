@@ -8,10 +8,14 @@ public enum Actions {
     ONE,
     TWO,
     THREE,
-    FOUR;
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT;
 
 
-    private Actions(){
+    Actions(){
     }
     public static boolean isCorrect(String s){
         Actions[] a = Actions.values();

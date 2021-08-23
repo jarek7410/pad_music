@@ -66,13 +66,13 @@ public class Main{
     private static void setWindow(){
         frame = new JFrame();
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(config.winDim);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
-        setMenu();
+        //setMenu();
 
         c =frame.getContentPane();
 
@@ -124,7 +124,7 @@ public class Main{
             }
 
             if(config.frameRun)windowPrint();
-
+            if(!frame.isActive())use("CLOSE");
 
 
             controllers.update();
@@ -170,10 +170,12 @@ public class Main{
     public static void use(String action){
         switch (action) {
             case "CLOSE" -> {
-                sound.close();
+                if(sound!=null)sound.close();
                 running = false;
                 System.out.println(
                         """
+                                --------------------------------------
+                                    
                                     music and program are stopped
                                     thanks for using this program
 
@@ -182,15 +184,9 @@ public class Main{
                                 ######################################
 
                                 https://github.com/jarek7410/pad_music""");
-
-                try {
-                    Thread.sleep(2000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 frame.dispatchEvent
                         (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
             }
             case "STOP" -> {
                 sound.stop();
@@ -201,6 +197,10 @@ public class Main{
             case "TWO" -> play(1);
             case "THREE" -> play(2);
             case "FOUR" -> play(3);
+            case "FIVE" -> play(4);
+            case "SIX" -> play(5);
+            case "SEVEN" -> play(6);
+            case "EIGHT" -> play(7);
             case "CHANGE" ->{
                 if(track!=-1){
                     sound.stop();
@@ -211,6 +211,7 @@ public class Main{
             default -> System.out.println
                     ("wrong action");
         }
+
     }
 
     private static void info(){

@@ -10,19 +10,21 @@ public class Window extends JPanel implements ActionListener {
     private final Config config;
     private final Color myBlack = new Color(30,39,46);
     private final Color CITI_LIGHTS =new Color(223,228,234);
+    private final String[] trackName;
     private JPanel nameSong;
     private JLabel titleLabel;
     private JPanel nameTrack;
     private JPanel actionButtonsPanel;
 
     private String nameOfSong;
-    private String track;
+    private String track="no selected";
 
     private JButton up, playStop,left,right;
     private JButton[] actionButtonList;
 
     public Window(Config config) {
         this.config=config;
+        this.trackName=config.getTracksNames();
         //this.setBackground(Color.GREEN);
         SpringLayout sLayout = new SpringLayout();
         this.setLayout(sLayout);
@@ -55,7 +57,8 @@ public class Window extends JPanel implements ActionListener {
     }
     private void setActionButtons(){
         actionButtonsPanel = new JPanel();
-        actionButtonsPanel.setPreferredSize(new Dimension(200,35*config.getNumberOfTreks()));
+        if(track.length()<=4)actionButtonsPanel.setPreferredSize(new Dimension(200,35*4));
+        else actionButtonsPanel.setPreferredSize(new Dimension(280,35*4));
         SpringLayout actButtonLayout = new SpringLayout();
 
         actionButtonsPanel.setLayout(actButtonLayout);
@@ -63,9 +66,13 @@ public class Window extends JPanel implements ActionListener {
         actionButtonList =new JButton[a.length];
         for (int i = 0; i < a.length; i++) {
             JButton jButton = new JButton(a[i].name());
+            jButton.setName(a[i].name());
             jButton.setPreferredSize(new Dimension(80, 35));
             actionButtonList[i] = jButton;
             //System.err.println(a[i].name()+"\t"+i);
+        }
+        for(int i=3;i<config.getNumberOfTreks()+3;i++){
+            actionButtonList[i].setText(trackName[i-3]);
         }
         for (int i = 0; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonList[i].addActionListener(this);
@@ -76,15 +83,25 @@ public class Window extends JPanel implements ActionListener {
         actButtonLayout.putConstraint(SpringLayout.WEST, actionButtonList[3], 0, SpringLayout.WEST, actionButtonsPanel);
         for (int i = 4; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonsPanel.add(actionButtonList[i]);
-            actButtonLayout.putConstraint
+            if(i<=6)
+                actButtonLayout.putConstraint
                     (SpringLayout.NORTH, actionButtonList[i], 0, SpringLayout.SOUTH, actionButtonList[i - 1]);
+            else {
+                System.err.println(i);
+                actButtonLayout.putConstraint
+                        (SpringLayout.WEST, actionButtonList[i], 0, SpringLayout.EAST, actionButtonList[i - 4]);
+                if(i!=7)actButtonLayout.putConstraint
+                        (SpringLayout.NORTH, actionButtonList[i], 0, SpringLayout.SOUTH, actionButtonList[i - 1]);
+
+            }
         }
         actionButtonList[1].addActionListener(this);
+        actionButtonList[1].setPreferredSize(new Dimension(90,40));
         actionButtonsPanel.add(actionButtonList[1]);
         actButtonLayout.putConstraint(SpringLayout.NORTH,actionButtonList[1],5,SpringLayout.NORTH,actionButtonsPanel);
         actButtonLayout.putConstraint(SpringLayout.EAST,actionButtonList[1],-5,SpringLayout.EAST,actionButtonsPanel);
         actionButtonList[2].addActionListener(this);
-        actionButtonList[2].setPreferredSize(new Dimension(100,35));
+        actionButtonList[2].setPreferredSize(new Dimension(90,40));
         actionButtonsPanel.add(actionButtonList[2]);
         actButtonLayout.putConstraint(SpringLayout.NORTH,actionButtonList[2],5,SpringLayout.SOUTH,actionButtonList[1]);
         actButtonLayout.putConstraint(SpringLayout.EAST,actionButtonList[2],-5,SpringLayout.EAST,actionButtonsPanel);
@@ -139,16 +156,31 @@ public class Window extends JPanel implements ActionListener {
             Main.use("CHANGE");
         } else if (actionButtonList[3].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[4].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[5].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
         }else if (actionButtonList[6].equals(source)) {
             JButton button= (JButton) source;
-            Main.use(button.getActionCommand());
+            Main.use(button.getName());
+        }else if (actionButtonList[7].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[8].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[9].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[10].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
+        }else if (actionButtonList[11].equals(source)) {
+            JButton button= (JButton) source;
+            Main.use(button.getName());
         }else{
             throw new IllegalStateException("Unexpected value: " + e.getSource());
         }

@@ -90,7 +90,7 @@ public class Sound implements Runnable{
     }
 
     public void close(){
-        if(playMusic)   player.close();
+        if(player!=null)   player.close();
         playMusic=false;
         running=false;
     }

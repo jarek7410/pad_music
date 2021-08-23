@@ -1,13 +1,19 @@
-4
-C:\Users\jarek\Downloads\X
-C:\Users\jarek\Downloads\Y
-C:\Users\jarek\Downloads\A
-C:\Users\jarek\Downloads\B
-7
-ONE         :   A
-TWO         :   B
-THREE       :   X
-FOUR        :   Y
-CLOSE       :   BACK
-STOP        :   LEFTBUMPER
-CHANGE      :   RIGHTBUMPER
+BEGIN:
+TRACKS:
+trill  = C:\Users\jarek\Downloads\X
+fight = C:\Users\jarek\Downloads\Y
+combat = C:\Users\jarek\Downloads\A
+tavern  = C:\Users\jarek\Downloads\B
+wl2 = C:\Users\jarek\Downloads\wl2_choir_songs_mp3
+witcher = C:\Users\jarek\Downloads\the_witcher_soundtrack_mp3
+ACTIONS:
+CLOSE	:	BACK
+STOP	:	LEFTBUMPER
+CHANGE	:	RIGHTBUMPER
+ONE	:	A
+TWO	:	B
+THREE	:	X
+FOUR	:	Y
+FIVE : DPAD_UP
+SIX : DPAD_DOWN
+END;
