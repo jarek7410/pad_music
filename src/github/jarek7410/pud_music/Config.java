@@ -101,7 +101,6 @@ public class Config {
                 }
             }
 
-
         } catch (Exception e) {
             System.err.println("""
                     your config file is invalid
@@ -141,7 +140,6 @@ public class Config {
             e.printStackTrace();
         }
     }
-
     public void saveConfigs(){
         try {
             FileWriter configWriter=new FileWriter(config);
