@@ -18,9 +18,13 @@ public class Window extends JPanel implements ActionListener {
 
     private String nameOfSong;
     private String track="no selected";
+    private String name="-";
 
     private JButton up, playStop,left,right;
     private JButton[] actionButtonList;
+
+    private JLabel[] infoLabel;
+    private JTextField[] infoField;
 
     public Window(Config config) {
         this.config=config;
@@ -54,7 +58,25 @@ public class Window extends JPanel implements ActionListener {
         sLayout.putConstraint(SpringLayout.NORTH, actionButtonsPanel, 5, SpringLayout.SOUTH, nameTrack);
         sLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, actionButtonsPanel,0,SpringLayout.HORIZONTAL_CENTER,this);
 
+        setTextField();
     }
+
+
+    private void setTextField() {
+        infoLabel=new JLabel[3];
+
+        infoLabel[0]=new JLabel("song name: ");
+        infoLabel[1]=new JLabel("track Name: ");
+        infoLabel[2]=new JLabel("track localization: ");
+
+        infoField=new JTextField[3];
+
+        infoField[0]=nameOf(nameOfSong);
+        infoField[1]=nameOf(name);
+        infoField[2]=nameOf(track);
+
+    }
+
     private void setActionButtons(){
         actionButtonsPanel = new JPanel();
         if(track.length()<=4)actionButtonsPanel.setPreferredSize(new Dimension(200,35*4));
@@ -111,15 +133,23 @@ public class Window extends JPanel implements ActionListener {
 
     }
      synchronized public void updatePanel(){
-        this.nameSong.removeAll();
-        this.nameSong.add(new JLabel("song name: "));
 
-        this.nameSong.add(nameOf(nameOfSong));
+         if(!nameOfSong.equals(infoField[0].getText())){
+             infoField[0]=nameOf(nameOfSong);
+             this.nameSong.removeAll();
+             this.nameSong.add(infoLabel[0]);
+             this.nameSong.add(infoField[0]);
+         }
+         if(!nameOfSong.equals(infoField[1].getText())){
+             infoField[1]=nameOf(name);
+             infoField[2]=nameOf(track);
+             this.nameTrack.removeAll();
+             this.nameTrack.add(infoLabel[1]);
+             this.nameTrack.add(infoField[1]);
+             this.nameTrack.add(infoLabel[2]);
+             this.nameTrack.add(infoField[2]);
+         }
 
-        this.nameTrack.removeAll();
-        this.nameTrack.add(new JLabel("track localization: "));
-
-        this.nameTrack.add(nameOf(track));
     }
     private JTextField nameOf(String s){
         JTextField textField = new JTextField();
@@ -138,8 +168,9 @@ public class Window extends JPanel implements ActionListener {
         this.nameOfSong=name;
     }
 
-    synchronized public void setTrack(String path){
+    synchronized public void setTrack(String path,String name){
         this.track=path;
+        this.name=name;
     }
 
 

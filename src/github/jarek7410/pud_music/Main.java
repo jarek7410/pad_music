@@ -5,6 +5,8 @@ import javazoom.jl.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
@@ -29,6 +31,9 @@ public class Main{
     private static HashMap<String, String> buttonActions;
     private static Config config;
     private static Thread threadSound;
+
+    private static JMenuItem buttonInfo;
+    private static JMenuItem tester;
 
     public static void main(String[] args) {
 
@@ -76,7 +81,6 @@ public class Main{
 
         c =frame.getContentPane();
 
-        //c.add(new JLabel("working"));
 
         window =new Window(config);
 
@@ -88,14 +92,34 @@ public class Main{
 
         window.setSong("nothing is played");
         window.setPause();
+        //setMenu();
     }
+
     private static void setMenu() {
         JMenuBar mb = new JMenuBar();
-        JMenu setting = new JMenu("Settings");
-        JMenuItem defaults = new JMenuItem("set Default ");
-        JMenuItem i1 = new JMenuItem("item1");
+        JMenu setting = new JMenu("info");
+        buttonInfo = new JMenuItem("Buttons info");
+        tester = new JMenuItem("Button tester");
         JMenuItem i2 = new JMenuItem("item2");
-        setting.add(i1);setting.add(defaults);setting.add(i2);
+
+        ActionListener l= e -> {
+            Object o=e.getSource();
+            if(o.equals(buttonInfo)){
+                Thread t;
+                ButtonInfo in=new ButtonInfo(config);
+                t = new Thread(in);
+                t.start();
+
+                System.out.println(e.getSource().toString());
+            }
+        };
+        buttonInfo.addActionListener(l);
+        tester.addActionListener(l);
+
+
+
+
+        setting.add(tester);setting.add(buttonInfo);setting.add(i2);
         mb.add(setting);
         frame.setJMenuBar(mb);
 
@@ -123,7 +147,6 @@ public class Main{
                 e.printStackTrace();
             }
 
-            if(config.frameRun)windowPrint();
             if(!frame.isActive())use("CLOSE");
 
 
@@ -158,7 +181,7 @@ public class Main{
         controllers.quitSDLGamepad();
     }
 
-    private static void windowPrint(){
+    protected static void windowPrint(){
         //panel.removeAll();
         window.updatePanel();
         panel.add(window);
@@ -189,9 +212,9 @@ public class Main{
 
             }
             case "STOP" -> {
-                sound.stop();
+                sound.stop(-2);
                 System.out.println("music is stopped");
-                window.setPause();
+                //window.setPause();
             }
             case "ONE" -> play(0);
             case "TWO" -> play(1);
@@ -211,7 +234,6 @@ public class Main{
             default -> System.out.println
                     ("wrong action");
         }
-
     }
 
     private static void info(){

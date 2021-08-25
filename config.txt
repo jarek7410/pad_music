@@ -4,7 +4,7 @@ trill  = C:\Users\jarek\Downloads\X
 fight = C:\Users\jarek\Downloads\Y
 combat = C:\Users\jarek\Downloads\A
 tavern  = C:\Users\jarek\Downloads\B
-wl2 = C:\Users\jarek\Downloads\wl2_choir_songs_mp3
+wl2 = .\wl2
 witcher = C:\Users\jarek\Downloads\the_witcher_soundtrack_mp3
 ACTIONS:
 CLOSE	:	BACK
