@@ -22,8 +22,8 @@ public class Window extends JPanel implements ActionListener {
     private JButton up, playStop,left,right;
     private JButton[] actionButtonList;
     private Boolean[] actionButtonState;
-    private int lastPressedActionButton=1;
-    private int lastTrackPlayd;
+    protected int lastPressedActionButton=1;
+    protected int lastTrackPlayd;
 
     private JLabel[] infoLabel;
     private JTextField[] infoField;
@@ -97,6 +97,7 @@ public class Window extends JPanel implements ActionListener {
             actionButtonState[i]=true;
             //System.err.println(a[i].name()+"\t"+i);
         }
+        lastButtonPressed(1);
         for(int i=3;i<config.getNumberOfTreks()+3;i++){
             actionButtonList[i].setText(trackName[i-3]);
         }
@@ -113,7 +114,7 @@ public class Window extends JPanel implements ActionListener {
                 actButtonLayout.putConstraint
                     (SpringLayout.NORTH, actionButtonList[i], 0, SpringLayout.SOUTH, actionButtonList[i - 1]);
             else {
-                System.err.println(i);
+                //System.err.println(i);
                 actButtonLayout.putConstraint
                         (SpringLayout.WEST, actionButtonList[i], 0, SpringLayout.EAST, actionButtonList[i - 4]);
                 if(i!=7)actButtonLayout.putConstraint
@@ -186,47 +187,34 @@ public class Window extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (actionButtonList[1].equals(source)) {
-            if(lastPressedActionButton!=1)lastTrackPlayd=lastPressedActionButton;
-            System.err.println(lastTrackPlayd);
-            lastButtonPressed(1);
             Main.use("STOP");
         } else if (actionButtonList[2].equals(source)) {
-            lastButtonPressed(lastTrackPlayd);
             Main.use("CHANGE");
         } else if (actionButtonList[3].equals(source)) {
-            lastButtonPressed(3);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[4].equals(source)) {
-            lastButtonPressed(4);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[5].equals(source)) {
-            lastButtonPressed(5);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[6].equals(source)) {
-            lastButtonPressed(6);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[7].equals(source)) {
-            lastButtonPressed(7);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[8].equals(source)) {
-            lastButtonPressed(8);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[9].equals(source)) {
-            lastButtonPressed(9);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[10].equals(source)) {
-            lastButtonPressed(10);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else if (actionButtonList[11].equals(source)) {
-            lastButtonPressed(11);
             JButton button= (JButton) source;
             Main.use(button.getName());
         }else{
@@ -234,7 +222,7 @@ public class Window extends JPanel implements ActionListener {
         }
 
     }
-    private void lastButtonPressed(int number){
+    public void lastButtonPressed(int number){
         if(!(actionButtonState[lastPressedActionButton])){
             refreshActionButtonList();
             System.err.println("new button was pressed and old one was false");
@@ -257,7 +245,6 @@ public class Window extends JPanel implements ActionListener {
         setActionButtonsList(track+3,false);
         actionButtonList[track+3].setText("\"EMPTY\"");
         for(Boolean b:actionButtonState){
-            System.err.println(b);
         }
     }
 

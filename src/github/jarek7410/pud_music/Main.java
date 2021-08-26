@@ -214,6 +214,10 @@ public class Main{
             case "STOP" -> {
                 sound.stop(-2);
                 System.out.println("music is stopped");
+                if(config.frameRun) {
+                    if(window.lastPressedActionButton!=1)window.lastTrackPlayd=window.lastPressedActionButton;
+                    window.lastButtonPressed(1);
+                }
                 //window.setPause();
             }
             case "ONE" -> play(0);
@@ -228,6 +232,7 @@ public class Main{
                 if(track!=-1){
                     sound.stop();
                     sound.play();
+                    if(config.frameRun)window.lastButtonPressed(window.lastTrackPlayd);
                 }
                 System.out.println("Song is changed");
             }
@@ -253,7 +258,6 @@ public class Main{
     }
 
     private static void play(int Track){
-
         System.out.println("track is changed");
         sound.setTrack(Track,config);
         if(sound.getTrack()!=track){
@@ -261,6 +265,7 @@ public class Main{
             track=Track;
         }
         sound.play();
+        if(config.frameRun)window.lastButtonPressed(track+3);
     }
 
 
