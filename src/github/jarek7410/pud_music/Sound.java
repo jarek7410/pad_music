@@ -49,10 +49,12 @@ public class Sound implements Runnable{
                 } catch (Exception e) {
                     System.err.println("incorrect track path ");
                     e.printStackTrace();
+                    window.emptyTrackError(tr);
                     while(tr==track) {
                         track += (int) (Math.random() * 16.0);
                         track %= config.getNumberOfTreks();
                     }
+                    window.refreshActionButtonList();
                 }finally {
                     System.out.println("track which is being played: " + config.traks()[track]);
                 }
