@@ -212,7 +212,12 @@ public class Main{
 
             }
             case "STOP" -> {
-                sound.stop(-2);
+                try{
+                    sound.stop(-2);
+                }catch (Exception e){
+                    System.err.println("player is not set up\nchoose correct track\n "+Thread.currentThread().getName());
+
+                }
                 System.out.println("music is stopped");
                 if(config.frameRun) {
                     if(window.lastPressedActionButton!=1)window.lastTrackPlayd=window.lastPressedActionButton;

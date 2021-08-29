@@ -98,6 +98,7 @@ public class Window extends JPanel implements ActionListener {
             //System.err.println(a[i].name()+"\t"+i);
         }
         lastButtonPressed(1);
+        actionButtonList[2].setEnabled(false);
         for(int i=3;i<config.getNumberOfTreks()+3;i++){
             actionButtonList[i].setText(trackName[i-3]);
         }
@@ -224,12 +225,12 @@ public class Window extends JPanel implements ActionListener {
     }
     public void lastButtonPressed(int number){
         if(!(actionButtonState[lastPressedActionButton])){
-            refreshActionButtonList();
-            System.err.println("new button was pressed and old one was false");
+            System.err.println("new button was pressed or one before  was false");
         }else
             actionButtonList[lastPressedActionButton].setEnabled(true);
         lastPressedActionButton=number;
         actionButtonList[lastPressedActionButton].setEnabled(false);
+        refreshActionButtonList();
     }
 
     public void setActionButtonsList(int number,boolean state){
@@ -244,8 +245,6 @@ public class Window extends JPanel implements ActionListener {
     public void emptyTrackError(int track){
         setActionButtonsList(track+3,false);
         actionButtonList[track+3].setText("\"EMPTY\"");
-        for(Boolean b:actionButtonState){
-        }
     }
 
 }

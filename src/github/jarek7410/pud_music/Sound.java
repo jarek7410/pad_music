@@ -50,11 +50,8 @@ public class Sound implements Runnable{
                     System.err.println("incorrect track path ");
                     e.printStackTrace();
                     window.emptyTrackError(tr);
-                    while(tr==track) {
-                        track += (int) (Math.random() * 16.0);
-                        track %= config.getNumberOfTreks();
-                    }
                     window.refreshActionButtonList();
+                    Main.use("STOP");
                 }finally {
                     System.out.println("track which is being played: " + config.traks()[track]);
                 }
@@ -76,6 +73,7 @@ public class Sound implements Runnable{
                 } catch (FileNotFoundException e) {
                     System.err.println("file not found");
                     e.printStackTrace();
+                    playMusic=false;
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
