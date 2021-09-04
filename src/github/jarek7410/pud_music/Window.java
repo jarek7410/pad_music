@@ -23,7 +23,7 @@ public class Window extends JPanel implements ActionListener {
     private JButton[] actionButtonList;
     private Boolean[] actionButtonState;
     protected int lastPressedActionButton=1;
-    protected int lastTrackPlayd;
+    protected int lastTrackPlayed;
 
     private JLabel[] infoLabel;
     private JTextField[] infoField;

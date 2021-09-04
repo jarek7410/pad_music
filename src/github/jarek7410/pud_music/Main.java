@@ -5,7 +5,6 @@ import javazoom.jl.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
@@ -13,16 +12,12 @@ import java.util.HashMap;
 
 public class Main{
 
-    private static boolean running=true;
 
     private static final int numberOfPads=4;
     private static ControllerManager controllers ;
     private static final ControllerButton[] buttons=ControllerButton.values();
     //private static ControllerButton button;
 
-    private static Player player;
-    private static boolean playMusic = false;
-    private static int track = 0;
     private static Sound sound;
     private static JFrame frame;
     private static JPanel panel;
@@ -59,7 +54,7 @@ public class Main{
         threadSound =new Thread(sound);
         threadSound.start();
 
-        track=-1;
+        config.track=-1;
 
         if(config.frameRun)windowPrint();
 
@@ -137,7 +132,7 @@ public class Main{
     }
 
     private static void run(){
-        while(running){
+        while(config.running){
             //time of refreshing of input
             //for power efficiency
 
@@ -194,7 +189,7 @@ public class Main{
         switch (action) {
             case "CLOSE" -> {
                 if(sound!=null)sound.close();
-                running = false;
+                config.running = false;
                 System.out.println(
                         """
                                 --------------------------------------
@@ -220,7 +215,7 @@ public class Main{
                 }
                 System.out.println("music is stopped");
                 if(config.frameRun) {
-                    if(window.lastPressedActionButton!=1)window.lastTrackPlayd=window.lastPressedActionButton;
+                    if(window.lastPressedActionButton!=1)window.lastTrackPlayed =window.lastPressedActionButton;
                     window.lastButtonPressed(1);
                 }
                 //window.setPause();
@@ -234,10 +229,10 @@ public class Main{
             case "SEVEN" -> play(6);
             case "EIGHT" -> play(7);
             case "CHANGE" ->{
-                if(track!=-1){
+                if(config.track!=-1){
                     sound.stop();
                     sound.play();
-                    if(config.frameRun)window.lastButtonPressed(window.lastTrackPlayd);
+                    if(config.frameRun)window.lastButtonPressed(window.lastTrackPlayed);
                 }
                 System.out.println("Song is changed");
             }
@@ -264,13 +259,12 @@ public class Main{
 
     private static void play(int Track){
         System.out.println("track is changed");
-        sound.setTrack(Track,config);
-        if(sound.getTrack()!=track){
+        if(Track!=config.track){
+            config.setTrack(Track);
             sound.stop();
-            track=Track;
         }
         sound.play();
-        if(config.frameRun)window.lastButtonPressed(track+3);
+        if(config.frameRun)window.lastButtonPressed(config.track+3);
     }
 
 

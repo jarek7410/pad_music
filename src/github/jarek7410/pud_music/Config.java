@@ -13,6 +13,10 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Config {
+    public int track=0;
+    public void setTrack(int i){
+        if(i<getNumberOfTreks())track=i;
+    }
     private String[] traks;
     public String[] traks() {
         return traks;
@@ -41,6 +45,7 @@ public class Config {
     private File config;
 
     public boolean frameRun =true;
+    public boolean running=true;
 
     public Config(){
         this.config=new File("config.txt");
