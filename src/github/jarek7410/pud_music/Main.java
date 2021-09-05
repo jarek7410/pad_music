@@ -1,6 +1,7 @@
 package github.jarek7410.pud_music;
 
 import com.studiohartman.jamepad.*;
+import com.studiohartman.jamepad.tester.ControllerTester;
 import javazoom.jl.player.Player;
 
 import javax.swing.*;
@@ -66,13 +67,14 @@ public class Main{
     private static void setWindow(){
         frame = new JFrame();
 
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setSize(config.winDim);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
-        //setMenu();
+        setMenu();
 
         c =frame.getContentPane();
 
@@ -88,6 +90,7 @@ public class Main{
         window.setSong("nothing is played");
         window.setPause();
         //setMenu();
+
     }
 
     private static void setMenu() {
@@ -100,12 +103,14 @@ public class Main{
         ActionListener l= e -> {
             Object o=e.getSource();
             if(o.equals(buttonInfo)){
-                Thread t;
+                ///Thread t;
                 ButtonInfo in=new ButtonInfo(config);
-                t = new Thread(in);
-                t.start();
-
-                System.out.println(e.getSource().toString());
+                //t = new Thread(in);
+                ///t.start();
+                in.run();
+            }else if(o.equals(tester)){
+                OptionWindow op=new OptionWindow(config);
+                op.run();
             }
         };
         buttonInfo.addActionListener(l);
@@ -142,8 +147,8 @@ public class Main{
                 e.printStackTrace();
             }
 
-            if(!frame.isActive())use("CLOSE");
-
+            //if(!frame.isActive())use("CLOSE");
+            if(!frame.isVisible())use("CLOSE");
 
             controllers.update();
             for (int i =0;i<numberOfPads;i++){
