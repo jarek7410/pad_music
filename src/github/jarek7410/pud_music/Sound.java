@@ -43,7 +43,7 @@ public class Sound implements Runnable{
             if (tr != config.track) {
                 tr = config.track;
                 try {
-                    listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.traks()[tr]));
+                    listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.getTraks()[tr]));
                 } catch (Exception e) {
                     System.err.println("incorrect track path ");
                     e.printStackTrace();
@@ -51,7 +51,7 @@ public class Sound implements Runnable{
                     window.refreshActionButtonList();
                     Main.use("STOP");
                 }finally {
-                    System.out.println("track which is being played: " + config.traks()[config.track]);
+                    System.out.println("track which is being played: " + config.getTraks()[config.track]);
                 }
             }
             //System.err.println("play music " + playMusic);
@@ -63,7 +63,7 @@ public class Sound implements Runnable{
                     System.out.println("track nr."+(config.track+1)+" song: \""+listOfTracks[i]+"\"");
                     InputStream is =
                             new FileInputStream
-                                    (config.traks()[config.track]
+                                    (config.getTraks()[config.track]
                                             +"\\"+ listOfTracks[i]);
                     player = new Player(is);
                     player.play();
@@ -81,13 +81,13 @@ public class Sound implements Runnable{
     }
     private void windowUpdate(int i) {
         if(i==-2){
-            window.setTrack(config.traks()[config.track],config.getTracksNames()[config.track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong("stopped");
         }else if(i==-1){
-            window.setTrack(config.traks()[config.track],config.getTracksNames()[config.track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong("changing");
         }else{
-            window.setTrack(config.traks()[config.track],config.getTracksNames()[config.track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong(listOfTracks[i]);
             }
 

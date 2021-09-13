@@ -18,7 +18,7 @@ public class Config {
         if(i<getNumberOfTreks())track=i;
     }
     private String[] traks;
-    public String[] traks() {
+    public String[] getTraks() {
         return traks;
     }
     private HashMap<String,String>  buttonsAction,

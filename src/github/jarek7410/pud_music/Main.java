@@ -259,7 +259,7 @@ public class Main{
     private static void info(){
         System.out.println("number of traks: "+ config.getNumberOfTreks());
         System.out.println("path to music from config.txt:");
-        for(String s:config.traks()){
+        for(String s:config.getTraks()){
             System.out.println("\t"+s);
         }
         System.out.println("action assignment:");
