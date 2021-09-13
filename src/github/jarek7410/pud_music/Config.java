@@ -145,34 +145,27 @@ public class Config {
             e.printStackTrace();
         }
     }
+    public void changeOptionsBAAB(String button,String action){
+        actionButtons.put(action,button);
+        buttonsAction.put(button,action);
+    }
     public void saveConfigs(){
         try {
-            FileWriter configWriter=new FileWriter(config);
-            /*configWriter.write("""
-                        4
-                        C:\\Users\\jarek\\Downloads\\X
-                        C:\\Users\\jarek\\Downloads\\Y
-                        C:\\Users\\jarek\\Downloads\\A
-                        C:\\Users\\jarek\\Downloads\\B
-                        7
-                        ONE         :   A
-                        TWO         :   B
-                        THREE       :   X
-                        FOUR        :   Y
-                        CLOSE       :   BACK
-                        STOP        :   LEFTBUMPER
-                        CHANGE      :   RIGHTBUMPER""");*/
-            configWriter.write(traks.length+"\r\n");
-            for(String ss:traks){
-                configWriter.write(ss+"\r\n");
+            FileWriter configWriter=new FileWriter("test.txt");
+
+            configWriter.write("BEGIN:\r\n");
+            configWriter.write("TRACKS:\r\n");
+            for(int i=0;i<traks.length;i++){
+                configWriter.write(tracksNames[i]+" = "+traks[i]+"\r\n");
             }
-            configWriter.write(actionButtons.size()+"\r\n");
+            configWriter.write("ACTIONS:\r\n");
             Actions[] actions = Actions.values();
             for(int i =0;i<Actions.values().length;++i){
                 configWriter.write(actions[i].name()+
                         "\t:\t"
                         +actionButtons.get(actions[i].name())+"\r\n");
             }
+            configWriter.write("END;\r\n");
 
 
             configWriter.close();

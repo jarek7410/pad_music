@@ -1,8 +1,8 @@
 package github.jarek7410.pud_music;
 
 import com.studiohartman.jamepad.*;
-import com.studiohartman.jamepad.tester.ControllerTester;
-import javazoom.jl.player.Player;
+import github.jarek7410.pud_music.options.ButtonInfo;
+import github.jarek7410.pud_music.options.OptionWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +30,9 @@ public class Main{
 
     private static JMenuItem buttonInfo;
     private static JMenuItem tester;
+
+    private static ButtonInfo in;
+    private static OptionWindow op;
 
     public static void main(String[] args) {
 
@@ -104,12 +107,12 @@ public class Main{
             Object o=e.getSource();
             if(o.equals(buttonInfo)){
                 ///Thread t;
-                ButtonInfo in=new ButtonInfo(config);
+                 in=new ButtonInfo(config);
                 //t = new Thread(in);
                 ///t.start();
                 in.run();
             }else if(o.equals(tester)){
-                OptionWindow op=new OptionWindow(config);
+                 op=new OptionWindow(config);
                 op.run();
             }
         };
@@ -207,9 +210,16 @@ public class Main{
                                 ######################################
 
                                 https://github.com/jarek7410/pad_music""");
-                frame.dispatchEvent
-                        (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-
+                try {
+                    if(frame!=null)frame.dispatchEvent
+                            (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    if(in!=null)in.dispatchEvent
+                            (new WindowEvent(in, WindowEvent.WINDOW_CLOSING));
+                    if(op!=null)op.dispatchEvent
+                            (new WindowEvent(op, WindowEvent.WINDOW_CLOSING));
+                }catch (Exception e){
+                    System.err.println("error: closing of windows");
+                }
             }
             case "STOP" -> {
                 try{
