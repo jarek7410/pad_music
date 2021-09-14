@@ -5,6 +5,7 @@
       <element id="module-output" name="pad music" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/Jamepad.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/jlayer-1.0.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="libs" />
     </root>
   </artifact>
 </component>

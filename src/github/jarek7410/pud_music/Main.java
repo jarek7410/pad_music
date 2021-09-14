@@ -1,11 +1,11 @@
 package github.jarek7410.pud_music;
 
 import com.studiohartman.jamepad.*;
-import javazoom.jl.player.Player;
+import github.jarek7410.pud_music.options.ButtonInfo;
+import github.jarek7410.pud_music.options.OptionWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
@@ -13,16 +13,12 @@ import java.util.HashMap;
 
 public class Main{
 
-    private static boolean running=true;
 
     private static final int numberOfPads=4;
     private static ControllerManager controllers ;
     private static final ControllerButton[] buttons=ControllerButton.values();
     //private static ControllerButton button;
 
-    private static Player player;
-    private static boolean playMusic = false;
-    private static int track = 0;
     private static Sound sound;
     private static JFrame frame;
     private static JPanel panel;
@@ -34,6 +30,9 @@ public class Main{
 
     private static JMenuItem buttonInfo;
     private static JMenuItem tester;
+
+    private static ButtonInfo in;
+    private static OptionWindow op;
 
     public static void main(String[] args) {
 
@@ -59,7 +58,7 @@ public class Main{
         threadSound =new Thread(sound);
         threadSound.start();
 
-        track=-1;
+        config.track=-1;
 
         if(config.frameRun)windowPrint();
 
@@ -71,13 +70,14 @@ public class Main{
     private static void setWindow(){
         frame = new JFrame();
 
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setSize(config.winDim);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("pad music");
         frame.setLayout(new BorderLayout());
-        //setMenu();
+        setMenu();
 
         c =frame.getContentPane();
 
@@ -93,6 +93,7 @@ public class Main{
         window.setSong("nothing is played");
         window.setPause();
         //setMenu();
+
     }
 
     private static void setMenu() {
@@ -105,12 +106,14 @@ public class Main{
         ActionListener l= e -> {
             Object o=e.getSource();
             if(o.equals(buttonInfo)){
-                Thread t;
-                ButtonInfo in=new ButtonInfo(config);
-                t = new Thread(in);
-                t.start();
-
-                System.out.println(e.getSource().toString());
+                ///Thread t;
+                 in=new ButtonInfo(config);
+                //t = new Thread(in);
+                ///t.start();
+                in.run();
+            }else if(o.equals(tester)){
+                 op=new OptionWindow(config,window);
+                op.run();
             }
         };
         buttonInfo.addActionListener(l);
@@ -137,7 +140,7 @@ public class Main{
     }
 
     private static void run(){
-        while(running){
+        while(config.running){
             //time of refreshing of input
             //for power efficiency
 
@@ -147,8 +150,8 @@ public class Main{
                 e.printStackTrace();
             }
 
-            if(!frame.isActive())use("CLOSE");
-
+            //if(!frame.isActive())use("CLOSE");
+            if(!frame.isVisible())use("CLOSE");
 
             controllers.update();
             for (int i =0;i<numberOfPads;i++){
@@ -194,7 +197,7 @@ public class Main{
         switch (action) {
             case "CLOSE" -> {
                 if(sound!=null)sound.close();
-                running = false;
+                config.running = false;
                 System.out.println(
                         """
                                 --------------------------------------
@@ -207,9 +210,16 @@ public class Main{
                                 ######################################
 
                                 https://github.com/jarek7410/pad_music""");
-                frame.dispatchEvent
-                        (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-
+                try {
+                    if(frame!=null)frame.dispatchEvent
+                            (new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    if(in!=null)in.dispatchEvent
+                            (new WindowEvent(in, WindowEvent.WINDOW_CLOSING));
+                    if(op!=null)op.dispatchEvent
+                            (new WindowEvent(op, WindowEvent.WINDOW_CLOSING));
+                }catch (Exception e){
+                    System.err.println("error: closing of windows");
+                }
             }
             case "STOP" -> {
                 try{
@@ -220,7 +230,7 @@ public class Main{
                 }
                 System.out.println("music is stopped");
                 if(config.frameRun) {
-                    if(window.lastPressedActionButton!=1)window.lastTrackPlayd=window.lastPressedActionButton;
+                    if(window.lastPressedActionButton!=1)window.lastTrackPlayed =window.lastPressedActionButton;
                     window.lastButtonPressed(1);
                 }
                 //window.setPause();
@@ -231,13 +241,13 @@ public class Main{
             case "FOUR" -> play(3);
             case "FIVE" -> play(4);
             case "SIX" -> play(5);
-            case "SEVEN" -> play(6);
+            case "SEVEN" -> play(0);
             case "EIGHT" -> play(7);
             case "CHANGE" ->{
-                if(track!=-1){
+                if(config.track!=-1){
                     sound.stop();
                     sound.play();
-                    if(config.frameRun)window.lastButtonPressed(window.lastTrackPlayd);
+                    if(config.frameRun)window.lastButtonPressed(window.lastTrackPlayed);
                 }
                 System.out.println("Song is changed");
             }
@@ -249,7 +259,7 @@ public class Main{
     private static void info(){
         System.out.println("number of traks: "+ config.getNumberOfTreks());
         System.out.println("path to music from config.txt:");
-        for(String s:config.traks()){
+        for(String s:config.getTraks()){
             System.out.println("\t"+s);
         }
         System.out.println("action assignment:");
@@ -264,13 +274,12 @@ public class Main{
 
     private static void play(int Track){
         System.out.println("track is changed");
-        sound.setTrack(Track,config);
-        if(sound.getTrack()!=track){
+        if(Track!=config.track){
+            config.setTrack(Track);
             sound.stop();
-            track=Track;
         }
         sound.play();
-        if(config.frameRun)window.lastButtonPressed(track+3);
+        if(config.frameRun)window.lastButtonPressed(config.track+3);
     }
 
 

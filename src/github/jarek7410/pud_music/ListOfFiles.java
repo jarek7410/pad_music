@@ -2,6 +2,7 @@ package github.jarek7410.pud_music;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -54,6 +55,16 @@ public class ListOfFiles {
             s[i]=list.get(i);
         }
         return s;
+    }
+    public static void writeToFile(File file,String s){
+        try {
+            FileWriter writer=new FileWriter(file);
+            writer.write(s);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

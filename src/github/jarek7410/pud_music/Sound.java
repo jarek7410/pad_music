@@ -8,26 +8,21 @@ import java.util.Random;
 
 public class Sound implements Runnable{
 
-    private boolean running;
     private boolean playMusic;
     private Player player;
     private Config config;
     private String[] listOfTracks;
-    private String[] nameOfTracks;
-    private int track=0;
+    //private String[] nameOfTracks;
 
     private Window window;
 
     Sound(Config config,Window w){
         if(config.frameRun)window =w;
         this.config=config;
-        running=true;
+        config.running=true;
         playMusic=false;
     }
 
-    public void reloadConfig(Config config){
-        this.config=config;
-    }
 
     @Override
     public void run() {
@@ -36,16 +31,17 @@ public class Sound implements Runnable{
         int i;
         Random r;
 
-        while(running) {
+        while(config.running) {
             try {
                 Thread.sleep(100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (tr != track) {
-                tr = track;
+            if (tr != config.track) {
+                tr = config.track;
                 try {
-                    listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.traks()[tr]));
+                    System.out.println("tr: " +tr);
+                    listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.getTraks()[tr]));
                 } catch (Exception e) {
                     System.err.println("incorrect track path ");
                     e.printStackTrace();
@@ -53,7 +49,7 @@ public class Sound implements Runnable{
                     window.refreshActionButtonList();
                     Main.use("STOP");
                 }finally {
-                    System.out.println("track which is being played: " + config.traks()[track]);
+                    System.out.println("track which is being played: " + config.getTraks()[config.track]);
                 }
             }
             //System.err.println("play music " + playMusic);
@@ -62,10 +58,10 @@ public class Sound implements Runnable{
                     //System.out.print("music is being played: ");
                     i = ((int) (Math.random() * listOfTracks.length));
                     if(config.frameRun) windowUpdate(i);
-                    System.out.println("track nr."+(track+1)+" song: \""+listOfTracks[i]+"\"");
+                    System.out.println("track nr."+(config.track+1)+" song: \""+listOfTracks[i]+"\"");
                     InputStream is =
                             new FileInputStream
-                                    (config.traks()[track]
+                                    (config.getTraks()[config.track]
                                             +"\\"+ listOfTracks[i]);
                     player = new Player(is);
                     player.play();
@@ -83,13 +79,13 @@ public class Sound implements Runnable{
     }
     private void windowUpdate(int i) {
         if(i==-2){
-            window.setTrack(config.traks()[track],config.getTracksNames()[track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong("stopped");
         }else if(i==-1){
-            window.setTrack(config.traks()[track],config.getTracksNames()[track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong("changing");
         }else{
-            window.setTrack(config.traks()[track],config.getTracksNames()[track]);
+            window.setTrack(config.getTraks()[config.track],config.getTracksNames()[config.track]);
             window.setSong(listOfTracks[i]);
             }
 
@@ -116,17 +112,12 @@ public class Sound implements Runnable{
     public void close(){
         if(player!=null)   player.close();
         playMusic=false;
-        running=false;
     }
 
     public boolean isPlayMusic() {
         return playMusic;
     }
 
-    public int getTrack(){
-        return track;
-    }
-    public void setTrack(int i,Config config){
-        if(i<config.getNumberOfTreks())track=i;
-    }
+
+
 }

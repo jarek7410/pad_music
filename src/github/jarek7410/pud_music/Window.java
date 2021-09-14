@@ -9,7 +9,7 @@ public class Window extends JPanel implements ActionListener {
     private final Config config;
     private final Color myBlack = new Color(30,39,46);
     private final Color CITI_LIGHTS =new Color(223,228,234);
-    private final String[] trackName;
+    private String[] trackName;
     private JPanel nameSong;
     private JLabel titleLabel;
     private JPanel nameTrack;
@@ -23,7 +23,7 @@ public class Window extends JPanel implements ActionListener {
     private JButton[] actionButtonList;
     private Boolean[] actionButtonState;
     protected int lastPressedActionButton=1;
-    protected int lastTrackPlayd;
+    protected int lastTrackPlayed;
 
     private JLabel[] infoLabel;
     private JTextField[] infoField;
@@ -99,9 +99,7 @@ public class Window extends JPanel implements ActionListener {
         }
         lastButtonPressed(1);
         actionButtonList[2].setEnabled(false);
-        for(int i=3;i<config.getNumberOfTreks()+3;i++){
-            actionButtonList[i].setText(trackName[i-3]);
-        }
+        refreshChaneInNames();
         for (int i = 0; i < config.getNumberOfTreks() + 3; i++) {
             actionButtonList[i].addActionListener(this);
         }
@@ -181,8 +179,6 @@ public class Window extends JPanel implements ActionListener {
 
 
 
-    public void setAsDisconnected() {
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -245,6 +241,12 @@ public class Window extends JPanel implements ActionListener {
     public void emptyTrackError(int track){
         setActionButtonsList(track+3,false);
         actionButtonList[track+3].setText("\"EMPTY\"");
+    }
+    public void refreshChaneInNames(){
+        trackName=config.getTracksNames();
+        for(int i=3;i<config.getNumberOfTreks()+3;i++){
+            actionButtonList[i].setText(trackName[i-3]);
+        }
     }
 
 }
