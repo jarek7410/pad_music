@@ -12,7 +12,7 @@ public class Sound implements Runnable{
     private Player player;
     private Config config;
     private String[] listOfTracks;
-    private String[] nameOfTracks;
+    //private String[] nameOfTracks;
 
     private Window window;
 
@@ -23,9 +23,6 @@ public class Sound implements Runnable{
         playMusic=false;
     }
 
-    public void reloadConfig(Config config){
-        this.config=config;
-    }
 
     @Override
     public void run() {
@@ -43,6 +40,7 @@ public class Sound implements Runnable{
             if (tr != config.track) {
                 tr = config.track;
                 try {
+                    System.out.println("tr: " +tr);
                     listOfTracks = ListOfFiles.VtoS(ListOfFiles.listOfMP3(config.getTraks()[tr]));
                 } catch (Exception e) {
                     System.err.println("incorrect track path ");

@@ -149,6 +149,13 @@ public class Config {
         actionButtons.put(action,button);
         buttonsAction.put(button,action);
     }
+    public void changeTracks(String[]tracks,String[]tracksNames,int trackNumber){
+        this.tracksNames=tracksNames;
+        this.traks = tracks;
+        this.numberOfTreks = trackNumber;
+    }
+
+
     public void saveConfigs(){
         try {
             FileWriter configWriter=new FileWriter("test.txt");

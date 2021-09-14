@@ -112,7 +112,7 @@ public class Main{
                 ///t.start();
                 in.run();
             }else if(o.equals(tester)){
-                 op=new OptionWindow(config);
+                 op=new OptionWindow(config,window);
                 op.run();
             }
         };
@@ -241,7 +241,7 @@ public class Main{
             case "FOUR" -> play(3);
             case "FIVE" -> play(4);
             case "SIX" -> play(5);
-            case "SEVEN" -> play(6);
+            case "SEVEN" -> play(0);
             case "EIGHT" -> play(7);
             case "CHANGE" ->{
                 if(config.track!=-1){
